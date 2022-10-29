@@ -15,12 +15,12 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
-      - name: Setup teleport
-        uses: gravitational/teleport-actions/setup@v1
-        with:
-          # version must be specified, and exclude the "v" prefix.
-          # check https://goteleport.com/download/ for valid releases.
-             version: 11.0.1
+      - name: Fetch tsh and tbot
+        run: wget https://cdn.teleport.dev/teleport-v11.0.1-linux-amd64-bin.tar.gz
+      - name: Install tsh
+        run: tar -xvf teleport-v11.0.1-linux-amd64-bin.tar.gz
+      - name: Install tsh 
+        run: sudo cp ./teleport/tbot ./tbot
       - name: Fetch credentials a
         run: ./tbot start -d --join-method=github --token=github-bot-2 --auth-server=teleport-11-ent.asteroid.earth:443 --oneshot --destination-dir=./certs --data-dir=./data
       - run: ls ./certs
