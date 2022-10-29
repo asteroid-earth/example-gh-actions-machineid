@@ -1,0 +1,27 @@
+name: Demo
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  demo:
+    permissions:
+      # This is required or tbot will not be able to authenticate
+      id-token: write
+      contents: read
+    name: demo
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      - name: Fetch tsh and tbot
+        run: wget https://cdn.teleport.dev/teleport-v11.0.1-linux-amd64-bin.tar.gz
+      - name: Install tsh
+        run: tar -xvf teleport-v11.0.1-linux-amd64-bin.tar.gz
+      - name: Fetch credentials
+        run: ./tbot start -d --join-method=github --token=github-bot --auth-server=teleport-11-ent.asteroid.earth:443 --oneshot --destination-dir=./certs --data-dir=./data
+      - run: ls ./certs
+      - name: List nodes
+        run: ./tsh -i ./certs/identity --proxy teleport-11-ent.asteroid.earth:443 ls
+   
