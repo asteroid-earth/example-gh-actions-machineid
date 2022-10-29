@@ -19,6 +19,10 @@ jobs:
         run: wget https://cdn.teleport.dev/teleport-v11.0.1-linux-amd64-bin.tar.gz
       - name: Install tsh
         run: tar -xvf teleport-v11.0.1-linux-amd64-bin.tar.gz
+      - name: Install tsh 
+        run: cd teleport 
+      - name: Install tsh 
+        run: sudo ./install
       - name: Fetch credentials
         run: ./tbot start -d --join-method=github --token=github-bot --auth-server=teleport-11-ent.asteroid.earth:443 --oneshot --destination-dir=./certs --data-dir=./data
       - run: ls ./certs
