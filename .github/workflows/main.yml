@@ -21,7 +21,7 @@ jobs:
         run: tar -xvf teleport-v11.0.1-linux-amd64-bin.tar.gz
       - name: Install tsh 
         run: sudo cp ./teleport/tbot ./tbot
-      - name: Fetch credentials
+      - name: Fetch credentials a
         run: ./tbot start -d --join-method=github --token=github-bot --auth-server=teleport-11-ent.asteroid.earth:443 --oneshot --destination-dir=./certs --data-dir=./data
       - run: ls ./certs
       - name: List nodes
